@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -17,9 +20,20 @@ class Utilisateur
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $nom;
+    private $email;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -29,50 +43,11 @@ class Utilisateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mdp;
-
-    /**
-     * @ORM\Column(type="array")
-     */
-    private $roles = [];
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Panier", mappedBy="utilisateur", cascade={"persist", "remove"})
-     */
-    private $panier;
+    private $nom;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -87,21 +62,26 @@ class Utilisateur
         return $this;
     }
 
-    public function getMdp(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->mdp;
+        return (string) $this->email;
     }
 
-    public function setMdp(string $mdp): self
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        $this->mdp = $mdp;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
 
-        return $this;
-    }
-
-    public function getRoles(): ?array
-    {
-        return $this->roles;
+        return array_unique($roles);
     }
 
     public function setRoles(array $roles): self
@@ -111,20 +91,58 @@ class Utilisateur
         return $this;
     }
 
-    public function getPanier(): ?Panier
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
     {
-        return $this->panier;
+        return (string) $this->password;
     }
 
-    public function setPanier(?Panier $panier): self
+    public function setPassword(string $password): self
     {
-        $this->panier = $panier;
+        $this->password = $password;
 
-        // set (or unset) the owning side of the relation if necessary
-        $newUtilisateur = null === $panier ? null : $this;
-        if ($panier->getUtilisateur() !== $newUtilisateur) {
-            $panier->setUtilisateur($newUtilisateur);
-        }
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
 
         return $this;
     }
