@@ -19,30 +19,30 @@ class Utilisateur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Prenom;
+    private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Email;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Mdp;
+    private $mdp;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="array")
      */
-    private $Role;
+    private $roles = [];
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Panier", mappedBy="Utilisateur", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Panier", mappedBy="utilisateur", cascade={"persist", "remove"})
      */
     private $panier;
 
@@ -53,60 +53,60 @@ class Utilisateur
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): self
+    public function setPrenom(string $prenom): self
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(string $Email): self
+    public function setEmail(string $email): self
     {
-        $this->Email = $Email;
+        $this->email = $email;
 
         return $this;
     }
 
     public function getMdp(): ?string
     {
-        return $this->Mdp;
+        return $this->mdp;
     }
 
-    public function setMdp(string $Mdp): self
+    public function setMdp(string $mdp): self
     {
-        $this->Mdp = $Mdp;
+        $this->mdp = $mdp;
 
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRoles(): ?array
     {
-        return $this->Role;
+        return $this->roles;
     }
 
-    public function setRole(string $Role): self
+    public function setRoles(array $roles): self
     {
-        $this->Role = $Role;
+        $this->roles = $roles;
 
         return $this;
     }

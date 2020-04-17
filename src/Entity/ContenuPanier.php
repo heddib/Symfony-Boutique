@@ -19,22 +19,22 @@ class ContenuPanier
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Produit", inversedBy="contenuPaniers")
      */
-    private $Produit;
+    private $produit;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Panier", inversedBy="contenuPanier", cascade={"persist", "remove"})
      */
-    private $Panier;
+    private $panier;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Quantity;
+    private $qte;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $Date;
+    private $date;
 
     public function getId(): ?int
     {
@@ -43,48 +43,48 @@ class ContenuPanier
 
     public function getProduit(): ?Produit
     {
-        return $this->Produit;
+        return $this->produit;
     }
 
-    public function setProduit(?Produit $Produit): self
+    public function setProduit(?Produit $produit): self
     {
-        $this->Produit = $Produit;
+        $this->produit = $produit;
 
         return $this;
     }
 
     public function getPanier(): ?Panier
     {
-        return $this->Panier;
+        return $this->panier;
     }
 
-    public function setPanier(?Panier $Panier): self
+    public function setPanier(?Panier $panier): self
     {
-        $this->Panier = $Panier;
+        $this->panier = $panier;
 
         return $this;
     }
 
-    public function getQuantity(): ?string
+    public function getQte(): ?string
     {
-        return $this->Quantity;
+        return $this->qte;
     }
 
-    public function setQuantity(string $Quantity): self
+    public function setQte(string $qte): self
     {
-        $this->Quantity = $Quantity;
+        $this->qte = $qte;
 
         return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
     {
-        return $this->Date;
+        return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $Date): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->Date = $Date;
+        $this->date = $date;
 
         return $this;
     }

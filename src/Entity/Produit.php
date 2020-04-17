@@ -21,30 +21,30 @@ class Produit
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Description;
+    private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Prix;
+    private $prix;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Stock;
+    private $stock;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Photo;
+    private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="Produit")
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="produit")
      */
     private $contenuPaniers;
 
@@ -60,60 +60,60 @@ class Produit
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getPrix(): ?string
     {
-        return $this->Prix;
+        return $this->prix;
     }
 
-    public function setPrix(string $Prix): self
+    public function setPrix(string $prix): self
     {
-        $this->Prix = $Prix;
+        $this->prix = $prix;
 
         return $this;
     }
 
     public function getStock(): ?string
     {
-        return $this->Stock;
+        return $this->stock;
     }
 
-    public function setStock(string $Stock): self
+    public function setStock(string $stock): self
     {
-        $this->Stock = $Stock;
+        $this->stock = $stock;
 
         return $this;
     }
 
     public function getPhoto(): ?string
     {
-        return $this->Photo;
+        return $this->photo;
     }
 
-    public function setPhoto(string $Photo): self
+    public function setPhoto(string $photo): self
     {
-        $this->Photo = $Photo;
+        $this->photo = $photo;
 
         return $this;
     }

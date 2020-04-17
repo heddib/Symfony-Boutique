@@ -19,20 +19,20 @@ class Panier
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Utilisateur", inversedBy="panier", cascade={"persist", "remove"})
      */
-    private $Utilisateur;
+    private $utilisateur;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $DateAchat;
+    private $date;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $Etat;
+    private $etat;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ContenuPanier", mappedBy="Panier", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\ContenuPanier", mappedBy="panier", cascade={"persist", "remove"})
      */
     private $contenuPanier;
 
@@ -43,36 +43,36 @@ class Panier
 
     public function getUtilisateur(): ?Utilisateur
     {
-        return $this->Utilisateur;
+        return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $Utilisateur): self
+    public function setUtilisateur(?Utilisateur $utilisateur): self
     {
-        $this->Utilisateur = $Utilisateur;
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
 
-    public function getDateAchat(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->DateAchat;
+        return $this->date;
     }
 
-    public function setDateAchat(\DateTimeInterface $DateAchat): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->DateAchat = $DateAchat;
+        $this->date = $date;
 
         return $this;
     }
 
     public function getEtat(): ?bool
     {
-        return $this->Etat;
+        return $this->etat;
     }
 
-    public function setEtat(bool $Etat): self
+    public function setEtat(bool $etat): self
     {
-        $this->Etat = $Etat;
+        $this->etat = $etat;
 
         return $this;
     }
