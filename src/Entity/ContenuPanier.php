@@ -22,12 +22,12 @@ class ContenuPanier
     private $produit;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Panier", inversedBy="contenuPanier", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Panier", inversedBy="contenuPaniers")
      */
     private $panier;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $qte;
 
@@ -65,12 +65,12 @@ class ContenuPanier
         return $this;
     }
 
-    public function getQte(): ?string
+    public function getQte(): ?int
     {
         return $this->qte;
     }
 
-    public function setQte(string $qte): self
+    public function setQte(int $qte): self
     {
         $this->qte = $qte;
 

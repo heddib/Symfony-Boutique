@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,7 +19,7 @@ class Panier
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Utilisateur", inversedBy="panier", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="paniers")
      */
     private $utilisateur;
 
@@ -29,12 +31,17 @@ class Panier
     /**
      * @ORM\Column(type="boolean")
      */
-    private $etat;
+    private $etat = false;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ContenuPanier", mappedBy="panier", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="panier")
      */
-    private $contenuPanier;
+    private $contenuPaniers;
+
+    public function __construct()
+    {
+        $this->contenuPaniers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,19 +84,32 @@ class Panier
         return $this;
     }
 
-    public function getContenuPanier(): ?ContenuPanier
+    /**
+     * @return Collection|ContenuPanier[]
+     */
+    public function getContenuPaniers(): Collection
     {
-        return $this->contenuPanier;
+        return $this->contenuPaniers;
     }
 
-    public function setContenuPanier(?ContenuPanier $contenuPanier): self
+    public function addContenuPanier(ContenuPanier $contenuPanier): self
     {
-        $this->contenuPanier = $contenuPanier;
+        if (!$this->contenuPaniers->contains($contenuPanier)) {
+            $this->contenuPaniers[] = $contenuPanier;
+            $contenuPanier->setPanier($this);
+        }
 
-        // set (or unset) the owning side of the relation if necessary
-        $newPanier = null === $contenuPanier ? null : $this;
-        if ($contenuPanier->getPanier() !== $newPanier) {
-            $contenuPanier->setPanier($newPanier);
+        return $this;
+    }
+
+    public function removeContenuPanier(ContenuPanier $contenuPanier): self
+    {
+        if ($this->contenuPaniers->contains($contenuPanier)) {
+            $this->contenuPaniers->removeElement($contenuPanier);
+            // set the owning side to null (unless already changed)
+            if ($contenuPanier->getPanier() === $this) {
+                $contenuPanier->setPanier(null);
+            }
         }
 
         return $this;

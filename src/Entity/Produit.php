@@ -29,17 +29,17 @@ class Produit
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="float")
      */
     private $prix;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $stock;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $photo;
 
@@ -82,24 +82,24 @@ class Produit
         return $this;
     }
 
-    public function getPrix(): ?string
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix(string $prix): self
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
 
         return $this;
     }
 
-    public function getStock(): ?string
+    public function getStock(): ?int
     {
         return $this->stock;
     }
 
-    public function setStock(string $stock): self
+    public function setStock(int $stock): self
     {
         $this->stock = $stock;
 
@@ -111,7 +111,7 @@ class Produit
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    public function setPhoto(?string $photo): self
     {
         $this->photo = $photo;
 
