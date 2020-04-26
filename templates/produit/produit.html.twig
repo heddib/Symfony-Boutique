@@ -5,8 +5,19 @@
 {% endblock %}
 
 {% block body %}
+
+<div class="mx-auto" style="width: 400px"><br>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-12">
+			{% if produit.photo is not null %}
+				<img class="img-thumbnail img-responsive" width="300" height="300" src="{{ asset('images/' ~ produit.photo) }}">
+			{% else %}
+				<p>
+					<b>{{ 'product.no_photo'|trans }}</b>
+				</p>
+			{% endif %}
+		</div><br>
+		<div class="col-md-6">
 			<h1>{{ produit.nom }}</h1>
 			<p>{{ produit.stock }}
 				{{ 'product.in_stock'|trans }}</p>
@@ -17,16 +28,8 @@
 			</a>
 			{% endif %}
 		</div>
-		<div class="col-md-8">
-			{% if produit.photo is not null %}
-				<img class="img-thumbnail img-responsive" width="200" height="200" src="{{ asset('images/' ~ produit.photo) }}">
-			{% else %}
-				<p>
-					<b>{{ 'product.no_photo'|trans }}</b>
-				</p>
-			{% endif %}
-		</div>
 	</div>
+	
 
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 		<h2>{{ 'product.add_to_cart'|trans({'%product%': produit.nom}) }}</h2>
@@ -39,5 +42,5 @@
 		<h2>{{ 'product.edit_product'|trans({'%product%': produit.nom}) }}</h2>
 		{{ form(form_edit_produit) }}
 	{% endif %}
-
+</div>
 {% endblock %}
