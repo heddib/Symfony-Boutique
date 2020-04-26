@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProduitRepository")
@@ -20,21 +21,33 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotNull
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotNull
+     * @Assert\Type("float")
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $prix;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotNull
+     * @Assert\Type("integer")
+     * @Assert\GreaterThanOrEqual(0)
      */
     private $stock;
 
@@ -44,7 +57,7 @@ class Produit
     private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="produit")
+     * @ORM\OneToMany(targetEntity="App\Entity\ContenuPanier", mappedBy="produit", orphanRemoval=true)
      */
     private $contenuPaniers;
 
