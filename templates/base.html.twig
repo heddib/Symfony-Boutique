@@ -16,10 +16,26 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
+				<div class="navbar-nav mr-auto">
+					<a class="nav-item nav-link" href="{{ path('home') }}">{{ 'nav.products'|trans }}</a>
+					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 					<a class="nav-item nav-link" href="{{ path('panier') }}">{{ 'nav.cart'|trans }}</a>
-					<a class="nav-item nav-link" href="{{ path('produits') }}">{{ 'nav.products'|trans }}</a>
+					{% endif %}
 				</div>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<div class="navbar-nav ml-auto">
+					{% if is_granted('ROLE_SUPER_ADMIN') %}
+					<a class="nav-item nav-link" href="{{ path('admin') }}">{{ 'nav.admin'|trans }}</a>
+					{% endif %}
+					<a class="nav-item nav-link" href="{{ path('dashboard') }}">{{ 'nav.my-account'|trans }}</a>
+					<a class="nav-item nav-link" href="{{ path('app_logout') }}">{{ 'nav.logout'|trans }}</a>
+				</div>
+				{% else %}
+				<div class="navbar-nav ml-auto">
+					<a class="nav-item nav-link" href="{{ path('app_login') }}">{{ 'nav.login'|trans }}</a>
+					<a class="nav-item nav-link" href="{{ path('app_register') }}">{{ 'nav.register'|trans }}</a>
+				</div>
+				{% endif %}
 			</div>
 		</nav>
 		<div class="container">

@@ -1,13 +1,19 @@
 meta:
-  title: "Home"
+  title: "Shop"
   products: "Products"
   product: "Product"
   cart: "Cart"
+  account: "My account"
 
 nav:
   brand: "Shop"
   products: "Products"
   cart: "Cart"
+  my-account: "My account"
+  login: "Login"
+  register: "Logout"
+  logout: "Logout"
+  admin: "Admin"
 
 products:
   title: "Products Listing"
@@ -18,12 +24,15 @@ products:
     price: "Price"
   no_products: "There are no products. :("
   add_product: "Add product"
+  not_admin: "You must be administrator to do this"
 
 product:
   in_stock: "products in stock"
   delete_product: "Delete product"
   no_photo: "No photo for this product."
   add_to_cart: "Add %product% to cart"
+  edit_product: "Modify product : %product%"
+  not_connected: "Please login to buy this product."
 
 cart:
   title: "Cart"
@@ -32,12 +41,38 @@ cart:
     name: "Name"
     quantity: "Quantity"
     price: "Price"
+    unit: "Unit price"
   information: "Information"
   total_products: "Total products"
   total_amount: "Total amount"
   validate_cart: "Validate cart"
   validated_cart: "Cart validated"
-  no_products_in_cart: "There are no products in your cart. :("
+  no_products_in_cart: "No products in cart. :("
+  date: "Cart bought :"
+
+dashboard:
+  hello: "Hello, %user% !"
+  modify_account: "Modify your information"
+  no_commandes: "There's no commands for your account."
+  commandes: "Commands"
+  view_commande: "Show command"
+  table:
+    id: "ID"
+    amount: "Total amount"
+    date: "Date"
+  admin:
+    no_carts: "No carts"
+    users: "User listing registred today"
+    carts: "Cart in progress"
+    table:
+      users:
+        id: "ID"
+        name: "Display name"
+        date: "Register date"
+      carts:
+        id: "ID"
+        user: "User"
+        content: "Content"
 
 flash:
   error:
@@ -45,12 +80,14 @@ flash:
     product_not_found: "Product not found"
     validated_cart_no_products: "You have no products in your cart."
     quantity: "Quantity problem."
+    user_edit: "Error while editing user"
   success:
     product_deleted_from_cart: "Deleted product from cart"
     validated_cart: "Cart validated"
     added_product: "Added product"
     added_product_to_cart: "Added product to cart"
     deleted_product: "Deleted product"
+    user_edit: "User edited"
 
 Nom: "Name"
 Qte: "Quantity"
@@ -58,3 +95,7 @@ Prix: "Price"
 Photo: "Photo"
 Submit: "Add to cart"
 Sauvegarder: "Add to products listing"
+Description: "Description"
+Prenom: "Firstname"
+Email: "Email"
+Password: "Password"

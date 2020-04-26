@@ -22,7 +22,7 @@ class ContenuPanier
     private $produit;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Panier", inversedBy="contenuPaniers")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Panier", inversedBy="contenuPaniers", cascade={"persist"})
      */
     private $panier;
 
@@ -35,6 +35,13 @@ class ContenuPanier
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    public function __construct(Produit $produit, Panier $panier)
+    {
+        $this->produit = $produit;
+        $this->panier = $panier;
+        $this->date = new \DateTime('now');
+    }
 
     public function getId(): ?int
     {

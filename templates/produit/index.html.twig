@@ -1,20 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProduitController!{% endblock %}
+{% block title %}{{ 'meta.title'|trans }} &raquo; {{ 'meta.products'|trans }}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<style>
+		.wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
+	</style>
 
-<div class="example-wrapper">
-    <h1>Hello ! ✅</h1>
+	<div class="wrapper">
+		<h1>{{ 'products.title'|trans }}</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Projets De Vinci/a2/confinement/php/git/Symfony-Boutique/src/Controller/ProduitController.php'|file_link(0) }}">src/Controller/ProduitController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Projets De Vinci/a2/confinement/php/git/Symfony-Boutique/templates/produit/index.html.twig'|file_link(0) }}">templates/produit/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+		{% if produits is not empty %}
+			<table class="table">
+				<thead>
+					<tr>
+						<th>{{ 'products.table.photo'|trans }}</th>
+						<th>{{ 'products.table.name'|trans }}</th>
+						<th>{{ 'products.table.quantity'|trans }}</th>
+						<th>{{ 'products.table.price'|trans }}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for produit in produits %}
+						<tr>
+							<td>
+								{% if produit.photo is not null %}
+									<img class="img-thumbnail img-responsive" width="200" height="200" src="{{ asset('images/' ~ produit.photo) }}">
+								{% endif %}
+							</td>
+							<td>
+								<a href="{{ path('view_product', {'id':produit.id}) }}">
+									{{ produit.nom }}
+								</a>
+							</td>
+							<td>{{ produit.stock }}</td>
+							<td>{{ produit.prix }}€</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<p>{{ 'products.no_products'|trans }}</p>
+		{% endif %}
+			<br/>
+			{% if is_granted('ROLE_ADMIN') %}
+				<h2>{{ 'products.add_product'|trans }}</h2>
+				{{ form(new_product_form) }}
+			{% endif %}
+		</div>
+	{% endblock %}

@@ -1,13 +1,19 @@
 meta:
-  title: "Accueil"
+  title: "Boutique"
   products: "Produits"
   product: "Produit"
   cart: "Panier"
+  account: "Mon compte"
 
 nav:
   brand: "Boutique"
   products: "Produits"
   cart: "Panier"
+  my-account: "Mon compte"
+  login: "Connexion"
+  register: "Inscription"
+  logout: "Déconnexion"
+  admin: "Admin"
 
 products:
   title: "Liste des produits"
@@ -18,12 +24,15 @@ products:
     price: "Prix"
   no_products: "Il n'y a pas de produits. :("
   add_product: "Ajouter un produit"
+  not_admin: "Vous devez être administrateur pour ajouter un produit."
 
 product:
   in_stock: "produits en stock"
   delete_product: "Supprimer le produit"
   no_photo: "Pas de photo pour ce produit."
   add_to_cart: "Ajouter %product% au panier"
+  edit_product: "Modifier le produit : %product%"
+  not_connected: "Veuillez vous connecter pour ajouter ce produit au panier."
 
 cart:
   title: "Panier"
@@ -32,12 +41,39 @@ cart:
     name: "Nom"
     quantity: "Quantité"
     price: "Prix"
+    unit: "Prix unitaire"
   information: "Informations"
   total_products: "Total des produits"
   total_amount: "Montant total"
   validate_cart: "Valider le panier"
   validated_cart: "Panier validé"
   no_products_in_cart: "Il n'y a pas de produits dans votre panier. :("
+  date: "Panier acheté le :"
+
+dashboard:
+  hello: "Bonjour, %user% !"
+  modify_account: "Modifier les informations du compte"
+  no_commandes: "Vous n'avez pas de commandes enregistrées sur votre compte."
+  commandes: "Commandes"
+  view_commande: "Voir la commande"
+  table:
+    id: "Identifiant"
+    amount: "Prix total"
+    date: "Date d'achat"
+  admin:
+    no_carts: "Aucun panier en cours :("
+    users: "Liste des utilisateurs inscrits aujourd'hui"
+    carts: "Paniers en cours"
+    table:
+      users:
+        id: "Identifiant"
+        name: "Nom d'affichage"
+        date: "Date d'inscription"
+      carts:
+        id: "Identifiant"
+        user: "Utilisateur"
+        content: "Contenu"
+
 
 flash:
   error:
@@ -45,16 +81,23 @@ flash:
     product_not_found: "Produit introuvable"
     validated_cart_no_products: "Vous n'avez pas de produits dans votre panier."
     quantity: "Problème de quantité."
+    user_edit: "Erreur lors de la modification de votre compte"
   success:
     product_deleted_from_cart: "Produit supprimé du panier"
     validated_cart: "Panier validé"
     added_product: "Produit ajouté"
     added_product_to_cart: "Produit ajouté au panier"
     deleted_product: "Produit supprimé"
+    user_edit: "Votre compte a été modifié avec succès !"
 
 Nom: "Nom"
-Qte: "Quantité"
+Stock: "Stock"
 Prix: "Prix"
 Photo: "Photo"
 Submit: "Ajouter au panier"
-Sauvegarder: "Ajouter à la liste des produits"
+Sauvegarder: "Sauvegarder"
+Qte: "Quantité"
+Description: "Description"
+Prenom: "Prénom"
+Email: "Email"
+Password: "Mot de passe"

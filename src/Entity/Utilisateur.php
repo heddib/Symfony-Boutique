@@ -52,9 +52,15 @@ class Utilisateur implements UserInterface
      */
     private $paniers;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
     public function __construct()
     {
         $this->paniers = new ArrayCollection();
+        $this->date = new \DateTime('now');
     }
 
     public function getId(): ?int
@@ -186,6 +192,41 @@ class Utilisateur implements UserInterface
                 $panier->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPanier(): Panier
+    {
+        foreach ($this->getPaniers() as $panier) {
+            if ($panier->getEtat() == false) {
+                return $panier;
+            }
+        }
+        return new Panier($this);
+    }
+
+    public function getCommandes(): Collection
+    {
+        $commandes = new ArrayCollection();
+        foreach ($this->getPaniers() as $panier) {
+            if ($panier->getEtat() == true) {
+                if (!$commandes->contains($panier)) {
+                    $commandes[] = $panier;
+                }
+            }
+        }
+        return $commandes;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

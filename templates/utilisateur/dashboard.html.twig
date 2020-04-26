@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'meta.title'|trans }} &raquo; {{ 'meta.account'|trans }}{% endblock %}
+
+{% block body %}
+<style>
+    .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+</style>
+
+<div class="wrapper">
+    <h1>{{ 'dashboard.hello'|trans({'%user%': user.prenom}) }}</h1>
+    </br>
+    <div class="row">
+        <div class="col">
+            <h3>{{ 'dashboard.modify_account'|trans }}</h3>
+            </hr>
+            {{ form(form_edit_user) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>{{ 'dashboard.commandes'|trans }}</h3>
+            {% if user.paniers is not empty %}
+                {# Prix de tous les paniers commandés #}
+				{% set prix_total = 0 %}
+                <table class="table">
+					<thead class="thead-dark">
+						<tr>
+							<th>{{ 'dashboard.table.id'|trans }}</th>
+							<th>{{ 'dashboard.table.amount'|trans }}</th>
+							<th>{{ 'dashboard.table.date'|trans }}</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for panier in user.paniers %}
+                            {% for contenu in panier.contenuPaniers %}
+                                {# Somme d'un produit * quantité #}
+                                {% set prix_total_quantite = 0 %}
+                                {% set prix_total_quantite = contenu.qte * contenu.produit.prix %}
+                                {% set prix_total = prix_total + prix_total_quantite %}
+                            {% endfor %}
+							<tr>
+								<th scope="row">>#{{ panier.id }}</th>
+								<td>{{ prix_total }}€</td>
+								<td>{{ panier.date|date }}</td>
+								<td>
+									<a class="btn btn-primary" href="{{ path('view_commande', {'id': panier.id}) }}">
+										{{ 'dashboard.view_commande'|trans }}
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+            {% else %}
+                <p>{{ 'dashboard.no_commandes'|trans }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

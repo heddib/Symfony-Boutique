@@ -24,7 +24,7 @@ class Panier
     private $utilisateur;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date;
 
@@ -38,8 +38,9 @@ class Panier
      */
     private $contenuPaniers;
 
-    public function __construct()
+    public function __construct(Utilisateur $utilisateur)
     {
+        $this->utilisateur = $utilisateur;
         $this->contenuPaniers = new ArrayCollection();
     }
 
@@ -111,6 +112,17 @@ class Panier
                 $contenuPanier->setPanier(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Valide une commande
+     */
+    public function validate() : self
+    {
+        $this->etat = true;
+        $this->date = new \DateTime('now');
 
         return $this;
     }
